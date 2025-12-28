@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>My Wish</title>
+
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Great+Vibes&display=swap"
+        rel="stylesheet">
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <style>
+        :root {
+            /* Funky Pastel Palette */
+            --bg-gradient: linear-gradient(135deg, #ffd1dc 0%, #f5c7f0 50%, #ffe4f7 100%);
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --text-main: #4a044e;
+            /* Dark Purple */
+            --text-body: #701a75;
+            /* Medium Purple */
+            --accent-pink: #f472b6;
+
+            --font-ui: 'Poppins', sans-serif;
+            --font-serif: 'Playfair Display', serif;
+            --font-cursive: 'Great Vibes', cursive;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: var(--font-ui);
+            background: var(--bg-gradient);
+            background-size: 200% 200%;
+            animation: gradientMove 15s ease infinite;
+            color: var(--text-main);
+            height: 100vh;
+            height: 100dvh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* -------------------------------------------------- */
+        /* FLOATING BACKGROUND                                */
+        /* -------------------------------------------------- */
+        .floater-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .floater {
+            position: absolute;
+            opacity: 0.3;
+            font-size: 1.5rem;
+            filter: blur(1px);
+        }
+
+        /* -------------------------------------------------- */
+        /* CONTENT CONTAINER                                  */
+        /* -------------------------------------------------- */
+        .container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 480px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            /* Ensure cards are visible on small vertical screens */
+            max-height: 100vh;
+            overflow-y: auto;
+            justify-content: center;
+            /* Hide scrollbar for container */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .container::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* -------------------------------------------------- */
+        /* CARDS                                              */
+        /* -------------------------------------------------- */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            width: 100%;
+            box-shadow:
+                0 10px 25px -5px rgba(244, 114, 182, 0.2),
+                0 8px 10px -6px rgba(244, 114, 182, 0.1);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px -5px rgba(244, 114, 182, 0.3);
+        }
+
+        .card-title {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .card-body {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-body);
+            white-space: pre-wrap;
+        }
+
+        /* Card 2 (User Editable) */
+        .card-editable {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .editable-area {
+            min-height: 80px;
+            outline: none;
+            border-bottom: 2px dashed rgba(244, 114, 182, 0.3);
+            text-align: left;
+            padding: 0.5rem;
+            color: #333;
+            font-style: italic;
+            transition: border-color 0.3s;
+        }
+
+        .editable-area:focus {
+            border-color: var(--accent-pink);
+            background: rgba(244, 114, 182, 0.05);
+            border-radius: 8px;
+        }
+
+        .instruction {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: var(--accent-pink);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* -------------------------------------------------- */
+        /* RESPONSIVE                                         */
+        /* -------------------------------------------------- */
+        @media (max-width: 400px) {
+            .card {
+                padding: 1.5rem;
+            }
+
+            .card-title {
+                font-size: 1.25rem;
+            }
+
+            .floater {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Floating Emojis Container -->
+    <div class="floater-container" id="floater-container"></div>
+
+    <div class="container">
+
+        <!-- CARD 1: FIXED DUA -->
+        <div class="card" id="card-1">
+            <h2 class="card-title">My Prayer for us</h2>
+            <div class="card-body">
+                O Allah, bless our friendship, keep our hearts pure, and guide us to what pleases You.
+                O Allah, unite us in goodness, bless our lives, and make us among those who love each other in Your
+                obedience.
+                O Allah, grant us success in our studies and work, and make us successful in this world and the
+                Hereafter.
+                O Allah, protect us from Shaytaan and his whispers, and make us always among those who remember You.
+
+                Amin. 🤍
+            </div>
+        </div>
+
+        <!-- CARD 2: USER WISH -->
+        <div class="card card-editable" id="card-2">
+            <h2 class="card-title" style="font-size: 1.1rem; opacity: 0.8;">Your Turn</h2>
+            <div class="editable-area" contenteditable="true">
+                Type your wish here...
+            </div>
+            <p class="instruction">
+                Take a screenshot & send to Mujahid 📸
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        // 1. Generate Floating Emojis
+        const emojis = ['🎂', '✨', '🌸', '💖', '💫', '🌿', '🎉'];
+        const container = document.getElementById('floater-container');
+
+        for (let i = 0; i < 15; i++) {
+            const el = document.createElement('div');
+            el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            el.classList.add('floater');
+            el.style.left = Math.random() * 100 + '%';
+            el.style.top = Math.random() * 100 + '%';
+            container.appendChild(el);
+
+            // Random float movement
+            gsap.to(el, {
+                y: -100 - Math.random() * 200,
+                x: Math.random() * 100 - 50,
+                rotation: Math.random() * 360,
+                duration: 10 + Math.random() * 10,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut",
+                delay: Math.random() * 5
+            });
+        }
+
+        // 2. Entrance Animations
+        const tl = gsap.timeline();
+
+        // Background Fade (handled by body CSS animation mostly, but let's ensure smoothness)
+
+        // Cards Entrance
+        tl.to("#card-1", {
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            ease: "power3.out",
+            delay: 0.2
+        })
+            .to("#card-2", {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                ease: "power3.out"
+            }, "-=0.8"); // Overlap
+
+        // 3. Optional: Subtle Pulse for Editable Area to encourage clicking
+        gsap.to(".editable-area", {
+            backgroundColor: "rgba(255,255,255,0.4)",
+            duration: 1.5,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+
+    </script>
+</body>
+
+</html>
