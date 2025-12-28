@@ -102,14 +102,20 @@
             padding: 1.5rem;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
             /* Ensure cards are visible on small vertical screens */
-            max-height: 100vh;
+            height: 100%;
             overflow-y: auto;
-            justify-content: center;
             /* Hide scrollbar for container */
             scrollbar-width: none;
             -ms-overflow-style: none;
+        }
+
+        .content-wrapper {
+            margin: auto;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
         }
 
         .container::-webkit-scrollbar {
@@ -212,31 +218,33 @@
     <div class="floater-container" id="floater-container"></div>
 
     <div class="container">
+        <div class="content-wrapper">
 
-        <!-- CARD 1: FIXED DUA -->
-        <div class="card" id="card-1">
-            <h2 class="card-title">My Prayer for us</h2>
-            <div class="card-body">
-                O Allah, bless our friendship, keep our hearts pure, and guide us to what pleases You.
-                O Allah, unite us in goodness, bless our lives, and make us among those who love each other in Your
-                obedience.
-                O Allah, grant us success in our studies and work, and make us successful in this world and the
-                Hereafter.
-                O Allah, protect us from Shaytaan and his whispers, and make us always among those who remember You.
+            <!-- CARD 1: FIXED DUA -->
+            <div class="card" id="card-1">
+                <h2 class="card-title">My Prayer for us</h2>
+                <div class="card-body">
+                    O Allah, bless our friendship, keep our hearts pure, and guide us to what pleases You.
+                    O Allah, unite us in goodness, bless our lives, and make us among those who love each other in Your
+                    obedience.
+                    O Allah, grant us success in our studies and work, and make us successful in this world and the
+                    Hereafter.
+                    O Allah, protect us from Shaytaan and his whispers, and make us always among those who remember You.
 
-                Amin. 🤍
+                    Amin. 🤍
+                </div>
             </div>
-        </div>
 
-        <!-- CARD 2: USER WISH -->
-        <div class="card card-editable" id="card-2">
-            <h2 class="card-title" style="font-size: 1.1rem; opacity: 0.8;">Your Turn</h2>
-            <div class="editable-area" contenteditable="true">
-                Type your wish here...
+            <!-- CARD 2: USER WISH -->
+            <div class="card card-editable" id="card-2">
+                <h2 class="card-title" style="font-size: 1.1rem; opacity: 0.8;">Your Turn</h2>
+                <div class="editable-area" contenteditable="true">
+                    Type your wish here...
+                </div>
+                <p class="instruction">
+                    Take a screenshot & send to Mujahid 📸
+                </p>
             </div>
-            <p class="instruction">
-                Take a screenshot & send to Mujahid 📸
-            </p>
         </div>
 
     </div>
